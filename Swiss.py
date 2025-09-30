@@ -5,6 +5,7 @@ import sys
 import random
 from datetime import datetime, timedelta
 import pytz
+import time  # Import time for sleep function
 
 TEAM_ID = "darkonswiss-dos"
 
@@ -15,41 +16,27 @@ if not API_TOKEN:
 
 # Turnieroptionen mit klaren Namen
 OPTIONS = [
-    # Bullet
-    {"name": "DOS Bullet Swiss",          "clock": {"limit": 60,   "increment": 0},  "nbRounds": 20},  # 1+0
-    {"name": "DOS Bullet Increment Swiss","clock": {"limit": 120,  "increment": 1},  "nbRounds": 15},  # 2+1
-
-    # Blitz
-    {"name": "DOS Blitz Swiss",           "clock": {"limit": 180,  "increment": 0},  "nbRounds": 13},  # 3+0
-    {"name": "DOS Blitz Increment Swiss", "clock": {"limit": 180,  "increment": 2},  "nbRounds": 13},  # 3+2
-    {"name": "DOS Blitz Swiss",           "clock": {"limit": 300,  "increment": 0},  "nbRounds": 11},  # 5+0
-    {"name": "DOS Blitz Increment Swiss", "clock": {"limit": 300,  "increment": 3},  "nbRounds": 11},  # 5+3
-
-    # Rapid
-    {"name": "DOS Rapid Swiss",           "clock": {"limit": 600,  "increment": 0},  "nbRounds": 9},   # 10+0
-    {"name": "DOS Rapid Increment Swiss", "clock": {"limit": 600,  "increment": 5},  "nbRounds": 9},   # 10+5
-    {"name": "DOS Rapid Swiss",           "clock": {"limit": 900,  "increment": 0},  "nbRounds": 9},   # 15+0
-    {"name": "DOS Rapid Increment Swiss", "clock": {"limit": 900,  "increment": 10}, "nbRounds": 9},   # 15+10
-
-    # Classical
-    {"name": "DOS Classical Swiss",       "clock": {"limit": 1800, "increment": 0},  "nbRounds": 5},   # 30+0
+    {"name": "DOS Bullet Swiss",          "clock": {"limit": 60,   "increment": 0},  "nbRounds": 20},
+    {"name": "DOS Bullet Increment Swiss","clock": {"limit": 120,  "increment": 1},  "nbRounds": 15},
+    {"name": "DOS Blitz Swiss",           "clock": {"limit": 180,  "increment": 0},  "nbRounds": 13},
+    {"name": "DOS Blitz Increment Swiss", "clock": {"limit": 180,  "increment": 2},  "nbRounds": 13},
+    {"name": "DOS Blitz Swiss",           "clock": {"limit": 300,  "increment": 0},  "nbRounds": 11},
+    {"name": "DOS Blitz Increment Swiss", "clock": {"limit": 300,  "increment": 3},  "nbRounds": 11},
+    {"name": "DOS Rapid Swiss",           "clock": {"limit": 600,  "increment": 0},  "nbRounds": 9},
+    {"name": "DOS Rapid Increment Swiss", "clock": {"limit": 600,  "increment": 5},  "nbRounds": 9},
+    {"name": "DOS Rapid Swiss",           "clock": {"limit": 900,  "increment": 0},  "nbRounds": 9},
+    {"name": "DOS Rapid Increment Swiss", "clock": {"limit": 900,  "increment": 10}, "nbRounds": 9},
+    {"name": "DOS Classical Swiss",       "clock": {"limit": 1800, "increment": 0},  "nbRounds": 5},
     {"name": "DOS Classical Increment Swiss",
-                                          "clock": {"limit": 1200, "increment": 10}, "nbRounds": 5},   # 20+10
+                                          "clock": {"limit": 1200, "increment": 10}, "nbRounds": 5},
 ]
 
 def utc_millis_for_hour(hour):
-    """
-    Berechne Startzeit in Millisekunden UTC für eine feste Stunde morgen.
-    hour: int 0-23
-    """
     utc = pytz.utc
     now = datetime.now(utc)
     tomorrow = now + timedelta(days=1)
     start = datetime(tomorrow.year, tomorrow.month, tomorrow.day, hour, 0, tzinfo=utc)
     return int(start.timestamp() * 1000), start
-
-
-import os
 
 def read_description():
     path = os.path.join(os.path.dirname(__file__), "description.txt")
@@ -59,36 +46,35 @@ def read_description():
     return "Welcome to our Swiss tournament!"
 
 def create_swiss():
-   for hour in range(24):
-    option = random.choice(OPTIONS)
-    startDate, start_dt = utc_millis_for_hour(hour)
+    for hour in range(24):
+        option = random.choice(OPTIONS)
+        startDate, start_dt = utc_millis_for_hour(hour)
+        payload = {
+            "name": f"{option['name']} ",
+            "clock.limit": option["clock"]["limit"],
+            "clock.increment": option["clock"]["increment"],
+            "nbRounds": option["nbRounds"],
+            "rated": "true",
+            "description": read_description(),
+            "startDate": startDate
+        }
+        url = f"https://lichess.org/api/swiss/new/{TEAM_ID}"
+        headers = {"Authorization": f"Bearer {API_TOKEN}"}
 
-        
-    payload = {
-    "name": f"{option['name']} ",
-    "clock.limit": option["clock"]["limit"],
-    "clock.increment": option["clock"]["increment"],
-    "nbRounds": option["nbRounds"],
-    "rated": "true",
-    "description": read_description(),
-    "startDate": startDate
-}
+        print(f"➡ Creating: {payload['name']} "
+              f"({payload['clock.limit']//60}+{payload['clock.increment']}, "
+              f"{payload['nbRounds']}R, Start {start_dt} UTC)")
 
-    url = f"https://lichess.org/api/swiss/new/{TEAM_ID}"
-    headers = {"Authorization": f"Bearer {API_TOKEN}"}
+        r = requests.post(url, data=payload, headers=headers)
 
-    print(f"➡️ Creating: {payload['name']} "
-          f"({payload['clock.limit']//60}+{payload['clock.increment']}, "
-          f"{payload['nbRounds']}R, Start {start_dt} UTC)")
+        if r.status_code == 200:
+            data = r.json()
+            print("✅ Tournament created!")
+            print("URL:", f"https://lichess.org/swiss/{data.get('id')}")
+        else:
+            print("❌ Error:", r.status_code, r.text)
 
-    r = requests.post(url, data=payload, headers=headers)
-
-    if r.status_code == 200:
-        data = r.json()
-        print("✅ Tournament created!")
-        print("URL:", f"https://lichess.org/swiss/{data.get('id')}")
-    else:
-        print("❌ Error:", r.status_code, r.text)
+        time.sleep(2)  # Wait 2 seconds between requests to avoid simultaneous creation
 
 if __name__ == "__main__":
     create_swiss()
