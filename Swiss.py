@@ -49,7 +49,7 @@ def create_swiss():
     startDate, start_dt = utc_millis_tomorrow_this_hour()
 
     payload = {
-    "name": f"{option['name']} {start_dt.strftime('%b%d-%Hh')}",
+    "name": f"{option['name']} ",
     "clock.limit": option["clock"]["limit"],
     "clock.increment": option["clock"]["increment"],
     "nbRounds": option["nbRounds"],
