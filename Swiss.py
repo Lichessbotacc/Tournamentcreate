@@ -49,14 +49,14 @@ def create_swiss():
     startDate, start_dt = utc_millis_tomorrow_this_hour()
 
     payload = {
-        "name": f"{option['name']} {start_dt.strftime('%b%d-%Hh')}",  # Name + Datum/Uhrzeit
-        "clock.limit": option["clock"]["limit"],
-        "clock.increment": option["clock"]["increment"],
-        "nbRounds": option["nbRounds"],
-        "rated": "true"
-        "description": "Daily Swiss (created 1 day in advance)",
-        "startDate": startDate,
-    }
+    "name": f"{option['name']} {start_dt.strftime('%b%d-%Hh')}",
+    "clock.limit": option["clock"]["limit"],
+    "clock.increment": option["clock"]["increment"],
+    "nbRounds": option["nbRounds"],
+    "rated": "true",
+    "description": "Daily Swiss (created 1 day in advance)",
+    "startDate": startDate
+}
 
     url = f"https://lichess.org/api/swiss/new/{TEAM_ID}"
     headers = {"Authorization": f"Bearer {API_TOKEN}"}
