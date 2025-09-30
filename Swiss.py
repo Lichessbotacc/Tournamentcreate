@@ -56,7 +56,10 @@ def read_description():
 
 def create_swiss():
     option = random.choice(OPTIONS)
-    startDate, start_dt = utc_millis_tomorrow_this_hour()
+    for hour in range(24):  # jede Stunde 0-23
+        startDate, start_dt = utc_millis_for_hour(hour)
+        option = random.choice(OPTIONS)
+        name = f"{option['name']}
 
     payload = {
     "name": f"{option['name']} ",
