@@ -29,7 +29,7 @@ def read_description():
 def create_swiss():
     option = random.choice(OPTIONS)
     description = read_description()
-
+    daysInAdvance = 1
     payload = {
         "name": option["name"],
         "clock.limit": option["clock"]["limit"],
