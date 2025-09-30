@@ -1,25 +1,25 @@
 name: Create Lichess Swiss Tournament
 
 on:
-  schedule:
+schedule:
     - cron: "0 * * * *"   # jede Stunde
   workflow_dispatch:
 
 jobs:
   build:
-    runs-on: ubuntu-latest
-    steps:
+runs-on: ubuntu-latest
+steps:
       - uses: actions/checkout@v3
 
-      - name: Set up Python
-        uses: actions/setup-python@v4
-        with:
+- name: Set up Python
+uses: actions/setup-python@v4
+with:
           python-version: "3.11"
 
-      - name: Install dependencies
-        run: pip install requests pytz
+- name: Install dependencies
+        run: pip install -r requirements.txt
 
-      - name: Run swiss.py
-        env:
+- name: Run swiss.py
+env:
           KEY: ${{ secrets.LICHESS_TOKEN }}
         run: python swiss.py
