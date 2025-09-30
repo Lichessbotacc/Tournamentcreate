@@ -31,4 +31,5 @@ jobs:
       - name: Run swiss.py
         run: python Swiss.py
         env:
-          KEY: ${{ secrets.KEY }}   # Your Lichess API token
+         KEY: ${{ secrets.LICHESS_TOKEN }}
+
