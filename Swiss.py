@@ -44,6 +44,16 @@ def utc_millis_tomorrow_this_hour():
     start = datetime(now.year, now.month, now.day, now.hour, 0, tzinfo=utc) + timedelta(days=1)
     return int(start.timestamp() * 1000), start
 
+import os
+
+def read_description():
+    path = os.path.join(os.path.dirname(__file__), "description.txt")
+    if os.path.exists(path):
+        with open(path, "r", encoding="utf-8") as f:
+            return f.read().strip()
+    return "Welcome to our Swiss tournament!"
+
+
 def create_swiss():
     option = random.choice(OPTIONS)
     startDate, start_dt = utc_millis_tomorrow_this_hour()
