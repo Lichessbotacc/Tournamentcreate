@@ -1,34 +1,25 @@
-name: Run Swiss Tournament Hourly
+name: Create Lichess Swiss Tournament
 
-# Trigger workflow every hour
 on:
   schedule:
-    - cron: '0 * * * *'   # At minute 0 of every hour
-  workflow_dispatch:       # Allow manual trigger too
+    - cron: "0 * * * *"   # jede Stunde
+  workflow_dispatch:
 
 jobs:
-  run-swiss:
+  build:
     runs-on: ubuntu-latest
-
     steps:
-      # 1️⃣ Checkout repo
-      - name: Checkout repository
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v3
 
-      # 2️⃣ Set up Python
       - name: Set up Python
         uses: actions/setup-python@v4
         with:
-          python-version: 3.11   # or 3.x of your choice
+          python-version: "3.11"
 
-      # 3️⃣ Install dependencies
       - name: Install dependencies
-        run: |
-          python -m pip install --upgrade pip
-          pip install requests
+        run: pip install requests pytz
 
-      # 4️⃣ Run the Swiss script
-      - name: Run swiss.py
-        run: python Swiss.py
+      - name: Run Swiss.py
         env:
-         KEY: ${{ secrets.LICHESS_TOKEN }}
+          KEY: ${{ secrets.LICHESS_TOKEN }}
+        run: python Swiss.py
