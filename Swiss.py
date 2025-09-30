@@ -17,19 +17,21 @@ if not API_TOKEN:
 OPTIONS = [
     # Bullet
     {"name": "DOS Bullet Swiss",          "clock": {"limit": 60,   "increment": 0},  "nbRounds": 20},  # 1+0
+    {"name": "DOS Bullet Increment Swiss","clock": {"limit": 60,   "increment": 1},  "nbRounds": 18},  # 1+1
+    {"name": "DOS Bullet Swiss",          "clock": {"limit": 120,  "increment": 0},  "nbRounds": 16},  # 2+0
     {"name": "DOS Bullet Increment Swiss","clock": {"limit": 120,  "increment": 1},  "nbRounds": 15},  # 2+1
 
     # Blitz
     {"name": "DOS Blitz Swiss",           "clock": {"limit": 180,  "increment": 0},  "nbRounds": 13},  # 3+0
-    {"name": "DOS Blitz Increment Swiss", "clock": {"limit": 180,  "increment": 2},  "nbRounds": 13},  # 3+2
+    {"name": "DOS Blitz Increment Swiss", "clock": {"limit": 180,  "increment": 2},  "nbRounds": 12},  # 3+2
     {"name": "DOS Blitz Swiss",           "clock": {"limit": 300,  "increment": 0},  "nbRounds": 11},  # 5+0
-    {"name": "DOS Blitz Increment Swiss", "clock": {"limit": 300,  "increment": 3},  "nbRounds": 11},  # 5+3
+    {"name": "DOS Blitz Increment Swiss", "clock": {"limit": 300,  "increment": 3},  "nbRounds": 10},  # 5+3
 
     # Rapid
     {"name": "DOS Rapid Swiss",           "clock": {"limit": 600,  "increment": 0},  "nbRounds": 9},   # 10+0
-    {"name": "DOS Rapid Increment Swiss", "clock": {"limit": 600,  "increment": 5},  "nbRounds": 9},   # 10+5
-    {"name": "DOS Rapid Swiss",           "clock": {"limit": 900,  "increment": 0},  "nbRounds": 9},   # 15+0
-    {"name": "DOS Rapid Increment Swiss", "clock": {"limit": 900,  "increment": 10}, "nbRounds": 9},   # 15+10
+    {"name": "DOS Rapid Increment Swiss", "clock": {"limit": 600,  "increment": 5},  "nbRounds": 8},   # 10+5
+    {"name": "DOS Rapid Swiss",           "clock": {"limit": 900,  "increment": 0},  "nbRounds": 7},   # 15+0
+    {"name": "DOS Rapid Increment Swiss", "clock": {"limit": 900,  "increment": 10}, "nbRounds": 6},   # 15+10
 
     # Classical
     {"name": "DOS Classical Swiss",       "clock": {"limit": 1800, "increment": 0},  "nbRounds": 5},   # 30+0
