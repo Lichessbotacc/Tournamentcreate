@@ -54,7 +54,7 @@ def create_swiss():
     "clock.increment": option["clock"]["increment"],
     "nbRounds": option["nbRounds"],
     "rated": "true",
-    "description": "Daily Swiss (created 1 day in advance)",
+    "description": read_description(),
     "startDate": startDate
 }
 
