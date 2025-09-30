@@ -54,6 +54,7 @@ def read_description():
     return "Welcome to our Swiss tournament!"
 
 def create_swiss():
+   for hour in range(24):
     option = random.choice(OPTIONS)
     startDate, start_dt = utc_millis_tomorrow_this_hour()
         
