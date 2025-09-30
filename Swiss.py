@@ -37,12 +37,17 @@ OPTIONS = [
                                           "clock": {"limit": 1200, "increment": 10}, "nbRounds": 5},   # 20+10
 ]
 
-def utc_millis_tomorrow_this_hour():
-    """Berechne Startzeit: Morgen, gleiche Stunde wie jetzt (UTC)"""
+def utc_millis_for_hour(hour):
+    """
+    Berechne Startzeit in Millisekunden UTC für eine feste Stunde morgen.
+    hour: int 0-23
+    """
     utc = pytz.utc
     now = datetime.now(utc)
-    start = datetime(now.year, now.month, now.day, now.hour, 0, tzinfo=utc) + timedelta(days=1)
+    tomorrow = now + timedelta(days=1)
+    start = datetime(tomorrow.year, tomorrow.month, tomorrow.day, hour, 0, tzinfo=utc)
     return int(start.timestamp() * 1000), start
+
 
 import os
 
