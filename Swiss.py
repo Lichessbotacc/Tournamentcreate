@@ -53,13 +53,10 @@ def read_description():
             return f.read().strip()
     return "Welcome to our Swiss tournament!"
 
-
 def create_swiss():
     option = random.choice(OPTIONS)
-        startDate, start_dt = utc_millis_for_hour(hour)
-        option = random.choice(OPTIONS)
+    startDate, start_dt = utc_millis_tomorrow_this_hour()
         
-
     payload = {
     "name": f"{option['name']} ",
     "clock.limit": option["clock"]["limit"],
