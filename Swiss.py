@@ -56,7 +56,6 @@ def read_description():
 
 def create_swiss():
     option = random.choice(OPTIONS)
-    for hour in range(24):  # jede Stunde 0-23
         startDate, start_dt = utc_millis_for_hour(hour)
         option = random.choice(OPTIONS)
         
