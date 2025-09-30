@@ -13,7 +13,7 @@ if not API_TOKEN:
 
 # Tournament options
 OPTIONS = [
-    {"name": "DOS BLIZ SWISS",  "clock": {"limit": 180,  "increment": 0}, "nbRounds": 11},   # 3+0
+    {"name": "DOS BLITZ SWISS",  "clock": {"limit": 180,  "increment": 0}, "nbRounds": 11},   # 3+0
     {"name": "DOS RAPID SWISS", "clock": {"limit": 600,  "increment": 0}, "nbRounds": 9},    # 10+0
     {"name": "DOS BULLET SWISS","clock": {"limit": 60,   "increment": 0}, "nbRounds": 20},   # 1+0
     {"name": "DOS BULLET SWISS","clock": {"limit": 120,  "increment": 1}, "nbRounds": 15},   # 2+1
