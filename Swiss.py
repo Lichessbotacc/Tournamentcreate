@@ -7,7 +7,7 @@ from datetime import datetime, timedelta
 import pytz
 import time  # Import time for sleep function
 
-TEAM_ID = "darktestingteam"
+TEAM_ID = "darkonswiss-dos"
 
 # Token aus ENV
 API_TOKEN = os.getenv("KEY")
@@ -56,7 +56,7 @@ def create_swiss():
             "nbRounds": option["nbRounds"],
             "rated": "true",
             "description": read_description(),
-            "startDate": startDate
+            "startsAt": startDate
         }
         url = f"https://lichess.org/api/swiss/new/{TEAM_ID}"
         headers = {"Authorization": f"Bearer {API_TOKEN}"}
