@@ -11,7 +11,7 @@ TEAM_ID = "darkonswiss-dos"
 # Token aus ENV
 API_TOKEN = os.getenv("KEY")
 if not API_TOKEN:
-sys.exit("Error: API token not found. Please set KEY environment variable.")
+    sys.exit("Error: API token not found. Please set KEY environment variable.")
 
 # Turnieroptionen mit klaren Namen
 OPTIONS = [
@@ -45,31 +45,34 @@ def utc_millis_tomorrow_this_hour():
     return int(start.timestamp() * 1000), start
 
 def create_swiss():
-option = random.choice(OPTIONS)
+    option = random.choice(OPTIONS)
     startDate, start_dt = utc_millis_tomorrow_this_hour()
 
-payload = {
+    payload = {
         "name": f"{option['name']} {start_dt.strftime('%b%d-%Hh')}",  # Name + Datum/Uhrzeit
-"clock.limit": option["clock"]["limit"],
-"clock.increment": option["clock"]["increment"],
-"nbRounds": option["nbRounds"],
+        "clock.limit": option["clock"]["limit"],
+        "clock.increment": option["clock"]["increment"],
+        "nbRounds": option["nbRounds"],
         "rated": True,
         "description": "Daily Swiss (created 1 day in advance)",
         "startDate": startDate,
-}
+    }
 
-url = f"https://lichess.org/api/swiss/new/{TEAM_ID}"
-headers = {"Authorization": f"Bearer {API_TOKEN}"}
+    url = f"https://lichess.org/api/swiss/new/{TEAM_ID}"
+    headers = {"Authorization": f"Bearer {API_TOKEN}"}
 
     print(f"➡️ Creating: {payload['name']} "
-f"({payload['clock.limit']//60}+{payload['clock.increment']}, "
+          f"({payload['clock.limit']//60}+{payload['clock.increment']}, "
           f"{payload['nbRounds']}R, Start {start_dt} UTC)")
 
-r = requests.post(url, data=payload, headers=headers)
+    r = requests.post(url, data=payload, headers=headers)
 
-if r.status_code == 200:
-data = r.json()
-print("✅ Tournament created!")
-print("URL:", f"https://lichess.org/swiss/{data.get('id')}")
-else:
-print("❌ Error:", r.status_code, r.text)
+    if r.status_code == 200:
+        data = r.json()
+        print("✅ Tournament created!")
+        print("URL:", f"https://lichess.org/swiss/{data.get('id')}")
+    else:
+        print("❌ Error:", r.status_code, r.text)
+
+if __name__ == "__main__":
+    create_swiss()
