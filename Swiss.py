@@ -7,7 +7,7 @@ from datetime import datetime, timedelta
 import pytz
 import time  # Import time for sleep function
 
-TEAM_ID = "darkonswiss-dos"
+TEAM_ID = "darktestingteam"
 
 # Token aus ENV
 API_TOKEN = os.getenv("KEY")
