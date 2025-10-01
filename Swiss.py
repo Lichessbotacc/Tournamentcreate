@@ -56,8 +56,8 @@ def create_swiss():
             "nbRounds": option["nbRounds"],
             "rated": "true",
             "description": read_description(),
-            "startsAt": startDate
-            "conditions.playYourGames": "true",
+            "startsAt": startDate,
+            "conditions.playYourGames": "true"
         }
         url = f"https://lichess.org/api/swiss/new/{TEAM_ID}"
         headers = {"Authorization": f"Bearer {API_TOKEN}"}
