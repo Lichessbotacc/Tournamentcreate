@@ -57,7 +57,7 @@ def create_swiss():
             "rated": "true",
             "description": read_description(),
             "startsAt": startDate
-            "conditions.playYourGames": "true"
+            "conditions.playYourGames": "true",
         }
         url = f"https://lichess.org/api/swiss/new/{TEAM_ID}"
         headers = {"Authorization": f"Bearer {API_TOKEN}"}
