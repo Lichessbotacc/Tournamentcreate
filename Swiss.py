@@ -16,6 +16,7 @@ if not API_TOKEN:
 
 # Turnieroptionen mit klaren Namen
 OPTIONS = [
+    {"name": "DOS Ultrabullet Cash Swiss",     "clock": {"limit": 15,  "increment": 0}, "nbRounds": 20}
     {"name": "DOS Bullet Cash Swiss",          "clock": {"limit": 60,   "increment": 0},  "nbRounds": 20},
     {"name": "DOS Bullet Increment Cash","clock": {"limit": 120,  "increment": 1},  "nbRounds": 15},
     {"name": "DOS Blitz Cash Swiss",           "clock": {"limit": 180,  "increment": 0},  "nbRounds": 13},
