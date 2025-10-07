@@ -16,9 +16,9 @@ if not API_TOKEN:
 
 # Turnieroptionen mit klaren Namen
 OPTIONS = [
-    {"name": "DOS Ultrabullet Cash Swiss",     "clock": {"limit": 15,  "increment": 0}, "nbRounds": 20}
+    {"name": "DOS Ultrabullet Cash Swiss",     "clock": {"limit": 15,   "increment": 0},  "nbRounds": 20},
     {"name": "DOS Bullet Cash Swiss",          "clock": {"limit": 60,   "increment": 0},  "nbRounds": 20},
-    {"name": "DOS Bullet Increment Cash","clock": {"limit": 120,  "increment": 1},  "nbRounds": 15},
+    {"name": "DOS Bullet Increment Cash",      "clock": {"limit": 120,  "increment": 1},  "nbRounds": 15},
     {"name": "DOS Blitz Cash Swiss",           "clock": {"limit": 180,  "increment": 0},  "nbRounds": 13},
     {"name": "DOS Blitz Increment Cash Swiss", "clock": {"limit": 180,  "increment": 2},  "nbRounds": 13},
     {"name": "DOS Blitz Cash Swiss",           "clock": {"limit": 300,  "increment": 0},  "nbRounds": 11},
@@ -26,10 +26,10 @@ OPTIONS = [
     {"name": "DOS Rapid Cash Swiss",           "clock": {"limit": 600,  "increment": 0},  "nbRounds": 9},
     {"name": "DOS Rapid Increment Cash Swiss", "clock": {"limit": 600,  "increment": 5},  "nbRounds": 9},
     {"name": "DOS Rapid Cash Swiss",           "clock": {"limit": 900,  "increment": 0},  "nbRounds": 9},
-    {"name": "DOS Rapid Increment Cash", "clock": {"limit": 900,  "increment": 10}, "nbRounds": 9},
+    {"name": "DOS Rapid Increment Cash",       "clock": {"limit": 900,  "increment": 10}, "nbRounds": 9},
     {"name": "DOS Classical Cash Swiss",       "clock": {"limit": 1800, "increment": 0},  "nbRounds": 5},
-    {"name": "DOS Classical Increment Cash",
-                                          "clock": {"limit": 1200, "increment": 10}, "nbRounds": 5},
+    {"name": "DOS Classical Increment Cash",   "clock": {"limit": 1200, "increment": 10}, "nbRounds": 5},
+                                              
 ]
 
 def utc_millis_for_hour(hour):
