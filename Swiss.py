@@ -18,8 +18,8 @@ if not API_TOKEN:
 OPTIONS = [
     {"name": "DOS Ultrabullet Swiss",     "clock": {"limit": 15,   "increment": 0},  "nbRounds": 20},
     {"name": "DOS Bullet Swiss",          "clock": {"limit": 60,   "increment": 0},  "nbRounds": 20},
-    {"name": "DOS Bullet Increment ",      "clock": {"limit": 120,  "increment": 1},  "nbRounds": 15},
-    {"name": "DOS Blitz Cash Swiss",           "clock": {"limit": 180,  "increment": 0},  "nbRounds": 13},
+    {"name": "DOS Bullet Increment ",     "clock": {"limit": 120,  "increment": 1},  "nbRounds": 15},
+    {"name": "DOS Blitz Cash Swiss",      "clock": {"limit": 180,  "increment": 0},  "nbRounds": 13},
     {"name": "DOS Blitz Increment Swiss", "clock": {"limit": 180,  "increment": 2},  "nbRounds": 13},
     {"name": "DOS Blitz Swiss",           "clock": {"limit": 300,  "increment": 0},  "nbRounds": 11},
     {"name": "DOS Blitz Increment Swiss", "clock": {"limit": 300,  "increment": 3},  "nbRounds": 11},
