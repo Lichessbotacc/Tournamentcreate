@@ -5,16 +5,16 @@ import sys
 import random
 from datetime import datetime, timedelta
 import pytz
-import time  # Import time for sleep function
+import time
 
 TEAM_ID = "darkonswiss-dos"
 
-# Token aus ENV
+# Token from ENV
 API_TOKEN = os.getenv("KEY")
 if not API_TOKEN:
     sys.exit("Error: API token not found. Please set KEY environment variable.")
 
-# Turnieroptionen mit klaren Namen
+# Tournament options
 OPTIONS = [
     {"name": "DOS Ultrabullet Swiss",     "clock": {"limit": 15,   "increment": 0},  "nbRounds": 20},
     {"name": "DOS Bullet Swiss",          "clock": {"limit": 60,   "increment": 0},  "nbRounds": 20},
@@ -29,14 +29,16 @@ OPTIONS = [
     {"name": "DOS Rapid Increment",       "clock": {"limit": 900,  "increment": 10}, "nbRounds": 9},
     {"name": "DOS Classical Swiss",       "clock": {"limit": 1800, "increment": 0},  "nbRounds": 5},
     {"name": "DOS Classical Increment",   "clock": {"limit": 1200, "increment": 10}, "nbRounds": 5},
-                                              
 ]
 
-def utc_millis_for_hour(hour):
+def utc_millis_for_half_hour(interval):
     utc = pytz.utc
     now = datetime.now(utc)
     tomorrow = now + timedelta(days=1)
-    start = datetime(tomorrow.year, tomorrow.month, tomorrow.day, hour, 0, tzinfo=utc)
+    # Calculate the next 30-minute interval
+    minutes = (interval % 2) * 30
+    hour = interval // 2
+    start = datetime(tomorrow.year, tomorrow.month, tomorrow.day, hour, minutes, tzinfo=utc)
     return int(start.timestamp() * 1000), start
 
 def read_description():
@@ -47,9 +49,10 @@ def read_description():
     return "Welcome to our Swiss tournament!"
 
 def create_swiss():
-    for hour in range(24):
+    # 48 intervals for 24 hours (every 30 minutes)
+    for interval in range(48):
         option = random.choice(OPTIONS)
-        startDate, start_dt = utc_millis_for_hour(hour)
+        startDate, start_dt = utc_millis_for_half_hour(interval)
         payload = {
             "name": f"{option['name']} ",
             "clock.limit": option["clock"]["limit"],
@@ -76,7 +79,7 @@ def create_swiss():
         else:
             print("❌ Error:", r.status_code, r.text)
 
-        time.sleep(2)  # Wait 2 seconds between requests to avoid simultaneous creation
+        time.sleep(2)  # Wait 2 seconds between requests to avoid rate limiting
 
 if __name__ == "__main__":
     create_swiss()
