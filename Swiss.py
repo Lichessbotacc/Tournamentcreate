@@ -76,7 +76,7 @@ def create_swiss():
         else:
             print("❌ Error:", r.status_code, r.text)
 
-        time.sleep(2)  # Wait 2 seconds between requests to avoid simultaneous creation
+        time.sleep(15)  # Wait 15 seconds between requests to avoid simultaneous creation
 
 if __name__ == "__main__":
     create_swiss()
