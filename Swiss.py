@@ -35,7 +35,7 @@ OPTIONS = [
 def utc_millis_for_hour(hour):
     utc = pytz.utc
     now = datetime.now(utc)
-    tomorrow = now + timedelta(days=0)
+    tomorrow = now + timedelta(days=1)
     start = datetime(tomorrow.year, tomorrow.month, tomorrow.day, hour, 0, tzinfo=utc)
     return int(start.timestamp() * 1000), start
 
@@ -76,7 +76,7 @@ def create_swiss():
         else:
             print("❌ Error:", r.status_code, r.text)
 
-        time.sleep(15)  # Wait 15 seconds between requests to avoid simultaneous creation
+        time.sleep(1)  # Wait 15 seconds between requests to avoid simultaneous creation
 
 if __name__ == "__main__":
     create_swiss()
